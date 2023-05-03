@@ -28,9 +28,11 @@ export class TrackingComponent implements OnInit {
   //canvas details
   maxX: any;
   maxY: any;
+  isOuterCircleVisible: any = true;
+  userCanvasImage: any;
 
 
-  constructor(private apiservice: ApiService,private toastr: ToastrService) {
+  constructor(private apiservice: ApiService, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -54,9 +56,9 @@ export class TrackingComponent implements OnInit {
     const userTraveledPathCtx = userTraveledPathCanvas.getContext('2d');
     const userdestinationCanvas = document.querySelector('#userdestinationCanvas') as HTMLCanvasElement;
     const userdestinationCtx = userdestinationCanvas.getContext('2d');
-    if(userTraveledPathCtx && userdestinationCtx){
-      userTraveledPathCtx.clearRect(0,0,userTraveledPathCanvas.width,userTraveledPathCanvas.height);
-      userdestinationCtx.clearRect(0,0,userdestinationCanvas.width,userdestinationCanvas.height)
+    if (userTraveledPathCtx && userdestinationCtx) {
+      userTraveledPathCtx.clearRect(0, 0, userTraveledPathCanvas.width, userTraveledPathCanvas.height);
+      userdestinationCtx.clearRect(0, 0, userdestinationCanvas.width, userdestinationCanvas.height)
     }
   }
 
@@ -68,6 +70,8 @@ export class TrackingComponent implements OnInit {
       this.userProfileUrl = 'data:image/jpg;base64,' + selectedUserImgURL[0].imageBase64;
       this.UserName = selectedUserImgURL[0].userName;
       this.Designation = selectedUserImgURL[0].designation;
+      this.userCanvasImage = new Image();
+      this.userCanvasImage.src = 'data:image/jpg;base64,' + selectedUserImgURL[0].imageBase64;
     }
 
     //Clear the canvas
@@ -75,9 +79,9 @@ export class TrackingComponent implements OnInit {
     const userTraveledPathCtx = userTraveledPathCanvas.getContext('2d');
     const userdestinationCanvas = document.querySelector('#userdestinationCanvas') as HTMLCanvasElement;
     const userdestinationCtx = userdestinationCanvas.getContext('2d');
-    if(userTraveledPathCtx && userdestinationCtx){
-      userTraveledPathCtx.clearRect(0,0,userTraveledPathCanvas.width,userTraveledPathCanvas.height);
-      userdestinationCtx.clearRect(0,0,userdestinationCanvas.width,userdestinationCanvas.height)
+    if (userTraveledPathCtx && userdestinationCtx) {
+      userTraveledPathCtx.clearRect(0, 0, userTraveledPathCanvas.width, userTraveledPathCanvas.height);
+      userdestinationCtx.clearRect(0, 0, userdestinationCanvas.width, userdestinationCanvas.height)
     }
   }
 
@@ -87,24 +91,24 @@ export class TrackingComponent implements OnInit {
   }
 
   trackHistoryBtnClicked() {
-    if(this.fromDate == null || this.fromDate == undefined){
+    if (this.fromDate == null || this.fromDate == undefined) {
       this.toastr.error('Field is empty', 'From Date');
     }
-    if(this.toDate == null || this.toDate == undefined ){
+    if (this.toDate == null || this.toDate == undefined) {
       this.toastr.error('Field is empty', 'To Date');
     }
     var validDate = true;
-    if(this.fromDate > this.toDate){
+    if (this.fromDate > this.toDate) {
       validDate = false;
       this.toastr.error('From Date must be before To Date', 'Date Range');
     }
-    if(this.fromDate != null && this.fromDate !=undefined && this.toDate != null && this.toDate !=undefined && validDate){
+    if (this.fromDate != null && this.fromDate != undefined && this.toDate != null && this.toDate != undefined && validDate) {
       this.apiservice.UserPathDuration(this.selectedUser, this.fromDate, this.toDate).subscribe((Response) => {
         console.log(Response)
-        if(Response.length == 0 ||Response == null || Response == undefined ){
+        if (Response.length == 0 || Response == null || Response == undefined) {
           this.toastr.warning('No data found for the selected Duration', 'No data');
         }
-        if (Response != null && Response.length > 0  && Response != undefined) {
+        if (Response != null && Response.length > 0 && Response != undefined) {
           debugger
           this.userTraveledPath = Response;
           this.TraveledPathmapping()
@@ -154,14 +158,38 @@ export class TrackingComponent implements OnInit {
     if (userdestinationCanvas) {
       const userdestinationCtx = userdestinationCanvas.getContext('2d');
       if (userdestinationCtx) {
-        userdestinationCtx.fillStyle = '#029D7A';
         userdestinationCtx.clearRect(0, 0, userdestinationCanvas.width, userdestinationCanvas.height);
-        userdestinationCtx.beginPath();
-        userdestinationCtx.arc(((this.userTraveledPath[(this.userTraveledPath.length - 1)].xCoord  / this.maxX) * userdestinationCanvas.width),
-          ((this.userTraveledPath[(this.userTraveledPath.length - 1)].yCoord / this.maxY) * userdestinationCanvas.height),
-          8, 0,
-          Math.PI * 2);
-          userdestinationCtx.fill();
+        userdestinationCtx.drawImage(
+          this.userCanvasImage,
+          (this.userTraveledPath[(this.userTraveledPath.length - 1)].xCoord / this.maxX) * userdestinationCanvas.width - 12,
+          (this.userTraveledPath[(this.userTraveledPath.length - 1)].yCoord / this.maxY) * userdestinationCanvas.height - 12,
+          12 * 2,
+          12 * 2
+        );
+
+        // Animation loop for the outer circle blinking effect
+        if (this.isOuterCircleVisible) {
+          userdestinationCtx.globalAlpha = 0.5; // Set partial transparency for the outer circle
+          userdestinationCtx.strokeStyle = '#029D7A';
+          userdestinationCtx.lineWidth = 15;
+          userdestinationCtx.beginPath();
+          userdestinationCtx.arc(
+            (this.userTraveledPath[(this.userTraveledPath.length - 1)].xCoord / this.maxX) * userdestinationCanvas.width,
+            (this.userTraveledPath[(this.userTraveledPath.length - 1)].yCoord / this.maxY) * userdestinationCanvas.height,
+            12 + 10, // Increase the radius to create a border around the image
+            0,
+            Math.PI * 2
+          );
+          userdestinationCtx.stroke();
+          userdestinationCtx.globalAlpha = 1; // Reset globalAlpha
+        }
+
+        // Toggle the visibility of the outer circle every second
+        setTimeout(() => {
+          this.isOuterCircleVisible = !this.isOuterCircleVisible;
+          // requestAnimationFrame(() => this.DestinationPathmapping());
+        }, 1000);
+
       }
     }
   }
@@ -191,6 +219,8 @@ export class TrackingComponent implements OnInit {
         this.userProfileUrl = 'data:image/jpg;base64,' + this.Users[0].imageBase64;
         this.UserName = this.Users[0].userName;
         this.Designation = this.Users[0].designation;
+        this.userCanvasImage = new Image();
+        this.userCanvasImage.src = 'data:image/jpg;base64,' + this.Users[0].imageBase64;
       }
     }, (error) => { console.log(error); });
   }
