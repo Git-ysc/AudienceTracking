@@ -43,8 +43,9 @@ export class MonitoringComponent implements OnInit {
 
     this.hubConnection.on('CurrentLocation', (location: any) => {
       if (this.selectedUser == location.userId) {
+        this.isOuterCircleVisible = true;
         this.userLiveLocation(location.xCoord, location.yCoord);
-        console.log(location);
+        console.log(location.userId);
       }
     });
 
@@ -85,6 +86,16 @@ export class MonitoringComponent implements OnInit {
       this.TotalDistance = selectedUserArray[0].totalDistance;
       this.userCanvasImage = new Image();
       this.userCanvasImage.src = 'data:image/jpg;base64,' + selectedUserArray[0].imageBase64;
+    }
+
+    //clear the canvas
+    const userCurrentLocationCanvas = document.querySelector('#userCurrentLocation') as HTMLCanvasElement;
+    const canvasCard = document.querySelector('.canvasCard') as HTMLCanvasElement;
+    const userLocationCtx = userCurrentLocationCanvas.getContext('2d');
+    if(userCurrentLocationCanvas && userLocationCtx && canvasCard){
+      userCurrentLocationCanvas.width = canvasCard.clientWidth;
+      userCurrentLocationCanvas.height = canvasCard.clientHeight;
+      userLocationCtx.clearRect(0, 0, userCurrentLocationCanvas.width, userCurrentLocationCanvas.height);
     }
   }
 
@@ -130,7 +141,7 @@ export class MonitoringComponent implements OnInit {
       // Toggle the visibility of the outer circle every second
       setTimeout(() => {
         this.isOuterCircleVisible = !this.isOuterCircleVisible;
-        requestAnimationFrame(() => this.userLiveLocation(xCoord,yCoord));
+        // requestAnimationFrame(() => this.userLiveLocation(xCoord,yCoord));
       }, 1000);
     }
   }

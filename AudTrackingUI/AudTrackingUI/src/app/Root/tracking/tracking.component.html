@@ -37,6 +37,8 @@
       <div class="row justify-content-center mt-2">
         <div class="col-9 me-2 canvasCard">
           <img [src]="imageUrl" alt="Map">
+          <canvas id="userTraveledPathCanvas"></canvas>
+          <canvas id="userdestinationCanvas"></canvas>
         </div>
         <div class="col-2 usersCard">
           <div class="container py-3 px-3">
@@ -55,12 +57,16 @@
             <div class="row datePickerCard mt-2 py-1">
               <div class="col-6 py-0 px-1">
                 <p class="m-0" >From</p>
-                <input type="datetime-local" id="fromDate" name="datepicker" >
+                <input type="datetime-local" id="fromDate"  [(ngModel)]="fromDate"  name="datepicker" >
               </div>
               <div class="col-6 py-0 px-1">
                 <p class="m-0">To</p>
-                <input type="datetime-local" id="toDate" name="datepicker" >
+                <input type="datetime-local" id="toDate" [(ngModel)]="toDate" name="datepicker" >
               </div>
+            </div>
+
+            <div class="row mt-2">
+              <button class="btn btn-sm trackHistoryBtn" (click)="trackHistoryBtnClicked()">Track History</button>
             </div>
           </div>
         </div>

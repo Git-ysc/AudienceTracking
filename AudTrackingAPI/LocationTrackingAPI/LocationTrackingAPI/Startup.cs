@@ -1,6 +1,7 @@
 using LocationTrackingAPI.Data;
 using LocationTrackingAPI.Hub;
 using LocationTrackingAPI.Interfaces;
+using LocationTrackingAPI.Repository;
 using LocationTrackingAPI.Uow;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -49,6 +50,7 @@ namespace LocationTrackingAPI
             });
             services.AddControllers();
             services.AddScoped<IUnitofwork, Unitofwork>();
+            //services.AddScoped<IUsersData, UsersDataRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -49,5 +49,19 @@ namespace LocationTrackingAPI.Repository
         {
             return await dc.Zones.ToListAsync();
         }
+
+        public void UpdateTotalTime(double totalDistance,int userID)
+        {
+            var user = dc.Users.FirstOrDefault(u => u.UserID == userID);
+            if (user != null)
+            {
+                user.TotalDistance = Convert.ToDecimal(totalDistance);
+            }
+         }
+
+        public async Task<List<TraveledPath>> getTraveledPath()
+        {
+            return await dc.TraveledPaths.ToListAsync();
+        }
     }
 }

@@ -11,6 +11,7 @@ export class ApiService {
   baseURL:string = "http://localhost:35137/api/LocationTracker/";
   GetLayoutURL:string = this.baseURL+"GetLayout";
   GetUserURL:string = this.baseURL+"GetUserList";
+  UserPathDurationURL:string =  this.baseURL + "UserPathDuration";
 
   locations:Layout[];
   constructor(private http: HttpClient) {
@@ -26,6 +27,14 @@ export class ApiService {
 
   GetUser(): Observable<any>{
     return this.http.get(this.GetUserURL);
+  }
+
+  UserPathDuration(userId:any, startTime:any,endTime:any): Observable<any>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("userID",userId);
+    queryParams = queryParams.append("startTime",startTime);
+    queryParams = queryParams.append("endTime",endTime);
+    return this.http.get(this.UserPathDurationURL,{params:queryParams});
   }
 
   fetchLayout(){

@@ -5,6 +5,7 @@ using LocationTrackingAPI.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,6 +20,7 @@ namespace LocationTrackingAPI.Controllers
     {
         private readonly IUnitofwork uow;
         private readonly IHubContext<CurrentLocationHub, ICurrentLocation> currentLoc;
+
 
         public LocationTrackerController(IUnitofwork uow, IHubContext<CurrentLocationHub, ICurrentLocation> currentLoc)
         {
@@ -120,22 +122,72 @@ namespace LocationTrackingAPI.Controllers
         [HttpPost("UpdateUserLocation")]
         public async Task<IActionResult> UpdateUserLocation(CurrentLocation currentLocation)
         {
-            CurrentLocationResponse tempObj = new CurrentLocationResponse() {
-                 MacAddress = currentLocation.MacAddress,
-                 Time = currentLocation.Time,
-                 XCoord = currentLocation.XCoord,
-                 YCoord = currentLocation.YCoord
+            CurrentLocationResponse tempObj = new CurrentLocationResponse()
+            {
+                MacAddress = currentLocation.MacAddress,
+                Time = currentLocation.Time,
+                XCoord = currentLocation.XCoord,
+                YCoord = currentLocation.YCoord
             };
             var users = await uow.UsersDataRepository.getUsers();
-            var filteredUser = users.Where(u => u.MacAddress == currentLocation.MacAddress).ToList();
-            foreach(var user in filteredUser)
+            var filteredUser = users.Where(u => u.MacAddress == currentLocation.MacAddress).FirstOrDefault();
+            if (filteredUser != null)
             {
-                tempObj.UserId = user.UserID;
-                tempObj.UserName = user.UserName;
+                tempObj.UserId = filteredUser.UserID;
+                tempObj.UserName = filteredUser.UserName;
             }
-
             currentLoc.Clients.All.CurrentLocation(tempObj);
+            UpdateUserData(currentLocation, filteredUser);
             return StatusCode(201);
+        }
+
+        private async Task UpdateUserData(CurrentLocation currentLocation, User filteredUser)
+        {
+            //updating the TotalDistance
+            var TravelPathList = await uow.UsersDataRepository.getTraveledPath();
+            var userPathList = TravelPathList.Where(tp => tp.UserId == filteredUser.UserID).OrderBy(tp => tp.DateTime).ToList();
+            double totalDistance = 0;
+            for (int i = 0; i < userPathList.Count - 1; i++)
+            {
+                double x1 = Convert.ToDouble(userPathList[i].xCoord);
+                double y1 = Convert.ToDouble(userPathList[i].yCoord);
+                double x2 = Convert.ToDouble(userPathList[i + 1].xCoord);
+                double y2 = Convert.ToDouble(userPathList[i + 1].yCoord);
+                double distance = Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
+                totalDistance += distance;
+            }
+            uow.UsersDataRepository.UpdateTotalTime(totalDistance, filteredUser.UserID);
+            await uow.SaveAsync();
+
+        }
+
+        [HttpGet("userLocationHistory")]
+        public async Task<UserLocationHistory> userLocationHistory(int userID)
+        {
+            UserLocationHistory userHistory = new UserLocationHistory();
+            var userTravelPath = await uow.UsersDataRepository.getTraveledPath();
+            var latestTraveledPath = userTravelPath.Where(tp => tp.UserId == userID).OrderByDescending(tp => tp.DateTime).FirstOrDefault();
+            if (latestTraveledPath != null)
+            {
+                userHistory.LastXCoord = latestTraveledPath.xCoord;
+                userHistory.LastYCoord = latestTraveledPath.yCoord;
+                userHistory.Time = latestTraveledPath.DateTime;
+            }
+            var users = await uow.UsersDataRepository.getUsers();
+            var User = users.Where(u => u.UserID == userID).FirstOrDefault();
+            if (User != null)
+            {
+                userHistory.TravelDistance = User.TotalDistance;
+            }
+            return userHistory;
+        }
+
+        [HttpGet("UserPathDuration")]
+        public async Task<List<TraveledPath>> UserPathDuration(int userID, DateTime startTime, DateTime endTime)
+        {
+            var userTravelPath = await uow.UsersDataRepository.getTraveledPath();
+            var filteredPath = userTravelPath.Where(p => p.UserId == userID && p.DateTime >= startTime && p.DateTime < endTime).ToList();
+            return filteredPath;
         }
 
     }

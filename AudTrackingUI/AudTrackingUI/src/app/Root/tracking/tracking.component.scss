@@ -30,8 +30,26 @@
 .canvasCard {
   height: 75vh;
   background-color: #ebf3f3;
-  // background-color: #ebf3f3;
   position: relative;
+}
+
+#userTraveledPathCanvas{
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#userdestinationCanvas{
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0
+}
+
+.trackHistoryBtn{
+  background-color: #029D7A;
+  color: white;
 }
 
 

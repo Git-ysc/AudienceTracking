@@ -13,6 +13,6 @@ namespace LocationTrackingAPI.Hub
        public async Task CurrentLocation(CurrentLocationResponse currentLocation)
        {
             await Clients.All.CurrentLocation(currentLocation);
-       }
+       }    
     }
 }

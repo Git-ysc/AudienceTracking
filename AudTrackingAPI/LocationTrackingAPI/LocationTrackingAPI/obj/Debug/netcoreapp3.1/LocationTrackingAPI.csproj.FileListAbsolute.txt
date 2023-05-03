@@ -33,7 +33,6 @@ D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\Lo
 D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\LocationTrackingAPI\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
 D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\LocationTrackingAPI\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
 D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\LocationTrackingAPI\bin\Debug\netcoreapp3.1\System.Net.WebSockets.WebSocketProtocol.dll
-D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\LocationTrackingAPI\obj\Debug\netcoreapp3.1\LocationTrackingAPI.csproj.AssemblyReference.cache
 D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\LocationTrackingAPI\obj\Debug\netcoreapp3.1\LocationTrackingAPI.AssemblyInfoInputs.cache
 D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\LocationTrackingAPI\obj\Debug\netcoreapp3.1\LocationTrackingAPI.AssemblyInfo.cs
 D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\LocationTrackingAPI\obj\Debug\netcoreapp3.1\LocationTrackingAPI.csproj.CoreCompileInputs.cache
@@ -45,3 +44,4 @@ D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\Lo
 D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\LocationTrackingAPI\obj\Debug\netcoreapp3.1\LocationTrackingAPI.dll
 D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\LocationTrackingAPI\obj\Debug\netcoreapp3.1\LocationTrackingAPI.pdb
 D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\LocationTrackingAPI\obj\Debug\netcoreapp3.1\LocationTrackingAPI.genruntimeconfig.cache
+D:\IT\1 FullStackProjects\AudienceTracking\AudTrackingAPI\LocationTrackingAPI\LocationTrackingAPI\obj\Debug\netcoreapp3.1\LocationTrackingAPI.csproj.AssemblyReference.cache

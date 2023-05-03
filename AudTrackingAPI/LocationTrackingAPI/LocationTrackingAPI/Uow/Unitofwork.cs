@@ -11,13 +11,15 @@ namespace LocationTrackingAPI.Uow
     public class Unitofwork:IUnitofwork
     {
         private readonly DataContext dc;
+        private readonly UsersDataRepository usersDataRepository;
 
         public Unitofwork(DataContext dc)
         {
             this.dc = dc;
+            this.usersDataRepository = new UsersDataRepository(dc);
         }
 
-        public IUsersData UsersDataRepository => new UsersDataRepository(dc);
+        public IUsersData UsersDataRepository => this.usersDataRepository;
 
         public async Task<bool> SaveAsync()
         {
