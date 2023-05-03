@@ -1,0 +1,14 @@
+#sidebarMenu {
+  width: 4vw;
+  background-color:var(--color-blue);
+  font-size: 1.3vw;
+  color: var(--color-lightGrey);
+}
+.mainDiv{
+  width: 96vw;
+}
+.activeNavigation {
+  background-color: #101219;
+  border-left: 0.3vw solid #029D7A;
+  color: var(--color-white);
+}

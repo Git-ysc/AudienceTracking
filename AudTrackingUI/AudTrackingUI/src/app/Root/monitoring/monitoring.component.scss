@@ -1,0 +1,186 @@
+#circle {
+  width: 1.9vw;
+  height: 1.9vw;
+  border-radius: 50%;
+  background-color: var(--color-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 0.8vw;
+  font-weight: 500;
+}
+
+#selectLocation {
+  border-color: #dddddd;
+  border-radius: 5px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.2em 3em 0.5em 0.5em;
+}
+
+#selectUser {
+  border-color: #dddddd;
+  border-radius: 5px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.1rem 1.1rem 0.3rem 0.3rem;
+}
+
+.canvasCard {
+  height: 75vh;
+  background-color: #ebf3f3;
+  background-color: #ebf3f3;
+  position: relative;
+}
+
+.canvasCard img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: stretch;
+}
+
+#userCurrentLocation {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.usersCard {
+  background-color: #ffffff;
+}
+
+.profileImage {
+  border-radius: 50%;
+  width: 100%;
+}
+
+.profileName {
+  font-size: 1.1vw;
+  font-weight: 700;
+}
+
+.designation {
+  font-size: 0.75vw;
+  font-weight: 500;
+}
+
+.userSpecCard {
+  border-top: 0.4vh solid #f1f1f1;
+}
+.userSpec {
+  color: #7f8fa4;
+  font-size: 0.8vw;
+  font-weight: 500;
+}
+
+.userSpecValue {
+  font-size: 0.8vw;
+  color: #11141a;
+  font-weight: 700;
+}
+
+.userSpecIconCard {
+  background-color: #ebf3f3;
+  border-radius: 5px;
+}
+.userSpecIcon {
+  font-size: 1.4vw;
+}
+.toggle-arrow {
+  background-color: #ebf3f3;
+  border-radius: 5px;
+}
+.bi-caret-up-fill {
+  color: #373c58;
+}
+
+.bi-caret-down-fill {
+  color: #373c58;
+}
+
+.Zonedetails {
+  height: 15vh;
+  overflow-y: scroll;
+}
+
+.Zonedetails::-webkit-scrollbar {
+  width: 0.5vw;
+  // background-color: #EBF3F3;
+}
+
+.Zonedetails::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #ebf3f3;
+}
+
+.ZonedetailHeading {
+  font-size: 0.7vw;
+  background-color: #f8f8f8;
+  font-weight: 7 00;
+}
+
+.ZonedetailContent {
+  font-size: 0.6vw;
+  background-color: #f8f8f8;
+  font-weight: 500;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  #selectUser {
+    border-color: #dddddd;
+    border-radius: 5px;
+    font-size: 0.32rem;
+    font-weight: 600;
+    padding: 0.3rem 0.4rem 0.3rem 0.1rem;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  #selectUser {
+    border-color: #dddddd;
+    border-radius: 5px;
+    font-size: 0.4rem;
+    font-weight: 600;
+    padding: 0.3rem 0.2rem 0.3rem 0.2rem;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  #selectUser {
+    border-color: #dddddd;
+    border-radius: 5px;
+    font-size: 0.48rem;
+    font-weight: 600;
+    padding: 0.3rem 0.5rem 0.3rem 0.2rem;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  #selectUser {
+    border-color: #dddddd;
+    border-radius: 5px;
+    font-size: 0.58rem;
+    font-weight: 600;
+    padding: 0.3rem 0.6rem 0.3rem 0.2rem;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  #selectUser {
+    border-color: #dddddd;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 1.2rem 0.2rem 0.2rem;
+  }
+}

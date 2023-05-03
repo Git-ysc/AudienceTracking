@@ -1,0 +1,43 @@
+#circle {
+  width: 1.9vw;
+  height: 1.9vw;
+  border-radius: 50%;
+  background-color: var(--color-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 0.8vw;
+  font-weight: 500;
+}
+
+.userCardHeading{
+  color: #11141A;
+  font-size: 1.1vw;
+  font-weight: 500;
+  border-bottom: 0.5vh solid #E8EAED;
+}
+
+.userCardLabel{
+  color: #11141A;
+  font-size: 1vw;
+  font-weight: 500;
+  border-bottom: 0.5vh solid #E8EAED;
+}
+
+.userCardLabel input{
+  border: 2px solid #E8EAED;
+  font-size: 0.8vw;
+}
+
+.saveBtn{
+  color: #ffffff;
+  background-color:#029D7A;
+  width:100%;
+}
+
+.cancelBtn{
+  color: #ffffff;
+  background-color:#4E4E4E;
+  width:100%
+}

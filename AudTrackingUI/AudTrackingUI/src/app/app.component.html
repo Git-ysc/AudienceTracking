@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="row p-0">
+    <nav id="sidebarMenu" class="col-1  vh-100 min-vh-100 p-0" >
+      <div class="position-sticky pt-1">
+        <ul class="nav flex-column" id="navigationItem">
+          <li class="nav-item mt-1 text-center py-2" id="Logo" style="color: #ffffff !important;">
+            <i class="bi bi-triangle"></i>
+          </li>
+          <li class="nav-item mt-1 text-center py-2" id="monitoring" routerLink="/Monitoring" (click)="toggleActive('monitoring')">
+            <i class="bi bi-geo-alt-fill"></i>
+          </li>
+          <li class="nav-item text-center py-2" id="tracking"  routerLink="/Tracking" (click)="toggleActive('tracking')">
+            <i class="bi bi-pin-map-fill"></i>
+          </li>
+          <li class="nav-item text-center py-2" id="userRegistration"  routerLink="/UserRegistratoin"  (click)="toggleActive('userRegistration')">
+            <i class="bi bi-person-fill-add"></i>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="col-11 p-0 mainDiv vh-100 min-vh-100">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

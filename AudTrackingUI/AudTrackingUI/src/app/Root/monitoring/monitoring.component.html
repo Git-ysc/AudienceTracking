@@ -1,0 +1,159 @@
+<div class="container-fluid  vh-100 min-vh-100" style="background-color: #F5F6FA;">
+  <div class="row p-0">
+    <div class="container-fluid navBar mt-1">
+      <div class="row p-2">
+        <div class="col-5">
+          <h6 class="h6 m-0" style="font-weight: 800;font-size: 1.3vw;">ADMIN - MONITORING</h6>
+          <p style="font-size: 0.9vw; color: #7F8FA4;" class="m-0">Monitoring</p>
+        </div>
+        <div class="col-4"></div>
+        <div class="col-2 d-flex align-items-start justify-content-end py-0">
+          <i class="bi bi-bell-fill" style="font-size: 1.3vw;"></i>
+        </div>
+        <div class="col-1 p-0">
+          <div id="circle">JS</div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center mt-1">
+        <div class="col-9 me-2 px-1 py-2" style="background-color: #FFFFFF;">
+          <select id="selectLocation" [(ngModel)]="selectedLocation" title="selectLocation"
+            (change)="onSelectLocation()">
+            <option *ngFor="let location of Locations" [value]="location.layoutName">
+              {{location.layoutName}}
+            </option>
+          </select>
+        </div>
+        <div class="col-2 px-1 py-2" style="background-color: #FFFFFF;">
+          <select id="selectUser" [(ngModel)]="selectedUser" title="selectUser" (change)="onSelectUser()">
+            <option *ngFor="let user of Users" [value]="user.userID">
+              {{user.userName}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row justify-content-center mt-2">
+        <div class="col-9 me-2 canvasCard">
+          <img [src]="imageUrl" alt="Map">
+          <canvas id="userCurrentLocation"></canvas>
+        </div>
+        <div class="col-2 usersCard">
+          <div class="container py-3 px-3">
+            <div class="row">
+              <div class="col-3 p-0">
+                <img [src]="userProfileUrl" class="profileImage" alt="Profile">
+              </div>
+              <div class="col-9 py-0 d-flex text-start align-items-center">
+                <div class="d-flex flex-column">
+                  <h6 class="h6 m-0 profileName">{{UserName}}</h6>
+                  <p class="m-0 designation">{{Designation}}</p>
+                </div>
+              </div>
+            </div>
+            <!-- Employee ID -->
+            <div class="row mt-1 py-1 userSpecCard">
+              <div class="col-3 p-0 text-center d-flex align-items-center justify-content-center userSpecIconCard">
+                <i class="bi bi-person-vcard-fill userSpecIcon"></i>
+              </div>
+              <div class="col-9 py-0 px-1">
+                <p class="m-0 userSpec">Employee ID</p>
+                <p class="m-0 userSpecValue">{{EmployeeID}}</p>
+              </div>
+            </div>
+            <!-- Department -->
+            <div class="row mt-1 py-1 userSpecCard">
+              <div class="col-3 p-0 text-center d-flex align-items-center justify-content-center userSpecIconCard">
+                <i class="bi bi-person-fill-gear userSpecIcon"></i>
+              </div>
+              <div class="col-9 py-0 px-1">
+                <p class="m-0 userSpec">Department</p>
+                <p class="m-0 userSpecValue">{{Department}}</p>
+              </div>
+            </div>
+            <!-- Work Order -->
+            <div class="row mt-1 py-1 userSpecCard">
+              <div class="col-3 p-0 text-center d-flex align-items-center justify-content-center userSpecIconCard">
+                <i class="bi bi-list-ul userSpecIcon"></i>
+              </div>
+              <div class="col-9 py-0 px-1">
+                <p class="m-0 userSpec">Work Order</p>
+                <p class="m-0 userSpecValue">{{WorkOrder}}</p>
+              </div>
+            </div>
+            <!-- Last Located at -->
+            <div class="row mt-1 py-1 userSpecCard">
+              <div class="col-3 p-0 text-center d-flex align-items-center justify-content-center userSpecIconCard">
+                <i class="bi bi-geo-alt-fill userSpecIcon"></i>
+              </div>
+              <div class="col-9 py-0 px-1">
+                <p class="m-0 userSpec">Last Located at</p>
+                <p class="m-0 userSpecValue">$Lcoation,$hh:mm:ss</p>
+              </div>
+            </div>
+            <!-- Zones Traveled -->
+            <div class="row mt-1 py-1 userSpecCard">
+              <div class="col-3 p-0 text-center d-flex align-items-center justify-content-center userSpecIconCard">
+                <i class="bi bi-geo-fill userSpecIcon"></i>
+              </div>
+              <div class="col-9 py-0 px-1">
+                <p class="m-0 userSpec">Zones Traveled &nbsp;
+                  <a (click)="toggleDetails()" class="toggle-arrow px-1">
+                    <i [ngClass]="{'bi bi-caret-up-fill': !isArrowDown, 'bi bi-caret-down-fill': isArrowDown}"></i>
+                  </a>
+                </p>
+                <p class="m-0 userSpecValue">4</p>
+              </div>
+            </div>
+            <div class="row mt-1 py-1 Zonedetails" *ngIf="showDetails">
+              <div class="container-fluid">
+                <div class="row ZonedetailHeading py-0 px-1">
+                  <div class="col-6 p-0 m-0">Zone Name</div>
+                  <div class="col-6 p-0 m-0">Time Spent</div>
+                </div>
+                <div class="row ZonedetailContent mt-1  py-0 px-1">
+                  <div class="col-6 p-0">Zone-1</div>
+                  <div class="col-6 p-0">30m</div>
+                </div>
+                <div class="row ZonedetailContent mt-1  py-0 px-1">
+                  <div class="col-6 p-0">Zone-1</div>
+                  <div class="col-6 p-0">30m</div>
+                </div>
+                <div class="row ZonedetailContent mt-1  py-0 px-1">
+                  <div class="col-6 p-0">Zone-1</div>
+                  <div class="col-6 p-0">30m</div>
+                </div>
+                <div class="row ZonedetailContent mt-1  py-0 px-1">
+                  <div class="col-6 p-0">Zone-1</div>
+                  <div class="col-6 p-0">30m</div>
+                </div>
+                <div class="row ZonedetailContent mt-1  py-0 px-1">
+                  <div class="col-6 p-0">Zone-1</div>
+                  <div class="col-6 p-0">30m</div>
+                </div>
+                <div class="row ZonedetailContent mt-1  py-0 px-1">
+                  <div class="col-6 p-0">Zone-1</div>
+                  <div class="col-6 p-0">30m</div>
+                </div>
+              </div>
+            </div>
+            <!-- Travel Distance -->
+            <div class="row mt-1 py-1 userSpecCard">
+              <div class="col-3 p-0 text-center d-flex align-items-center justify-content-center userSpecIconCard">
+                <i class="bi bi-map-fill userSpecIcon"></i>
+              </div>
+              <div class="col-9 py-0 px-1">
+                <p class="m-0 userSpec">Travel Distance</p>
+                <p class="m-0 userSpecValue">{{TotalDistance}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- style="border: 1px solid;" -->
